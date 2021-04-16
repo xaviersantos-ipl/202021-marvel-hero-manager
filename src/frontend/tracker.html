@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <link rel="stylesheet" href="vendor/bootstrap-4.6.0-dist/css/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="vendor/bootstrap-4.6.0-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <title>Marvel Hero Manager - Series Tracker</title>
+</head>
+
+<body>
+    <div class="app">
+
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="index.html">Hero Manager</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="search.html">Search</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="tracker.html">Tracker</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="auth.html">Auth</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div id="content" class="container">
+        <div class="results">
+            <table id="series" class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <nav>
+                <ul class="pagination justify-content-center">
+                </ul>
+            </nav>
+        </div>
+
+        <div class="results" id="comics" style="display:none">
+            <table id="search_results" class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Published</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Series</th>
+                        <th scope="col">Link</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <nav>
+                <ul class="pagination justify-content-center">
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <footer><a href="http://marvel.com">Data provided by Marvel. © 2021 MARVEL</a></footer>
+    <script src="vendor/jquery/jquery-3.6.0.slim.min.js"></script>
+    <script src="vendor/bootstrap-4.6.0-dist/js/bootstrap.min.js"></script>
+    <script src="vendor/axios/axios.min.js"></script>
+    <script src="vendor/moment/moment.min.js"></script>
+    <script src="js/tracker.js"></script>
+</body>
+
+</html>

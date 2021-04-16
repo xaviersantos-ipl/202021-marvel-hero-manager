@@ -3,4 +3,4 @@ WORKDIR /app
 RUN npm install --global nodemon
 COPY ./package.json /app/
 RUN npm install
-CMD [ "npm", "run nodemon" ]
+ENTRYPOINT npm run nodemon

@@ -11,8 +11,8 @@ services:
             context: ../../src/
             dockerfile: ../deployment/local/app/Dockerfile
         volumes:
-            - ../src/backend:/app/backend
-            - ../src/frontend:/app/frontend
+            - ../../src/backend:/app/backend
+            - ../../src/frontend:/app/frontend
         ports:
             - "8080:8080"
         depends_on:
@@ -23,4 +23,4 @@ services:
             - DB_PORT=27017
             - DB_NAME=heroManager
         env_file: .env
-  
+        

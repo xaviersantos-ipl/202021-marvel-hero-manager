@@ -1,6 +1,6 @@
 const { Agenda } = require('agenda');
 const db = require('./database.js');
-const axios = require('axios');
+const axios = require('axios')
 
 const dbHost = process.env.DB_HOST || '127.0.0.1';
 const dbPort = process.env.BD_PORT || 27017;
@@ -27,7 +27,7 @@ const start = async(mongo) => {
             series: []
         }
         for (let series of seriesDocuments) {
-            let comics = (await axios.post('http://hero_manager_marvel:8080/api/series/' + series.id + '/comics')).data
+            let { data: comics } = await axios.post('http://hero_manager_marvel:8080/api/series/' + series.id + '/comics')
             for (let comic of comics) {
                 let comicDoc = await db.getComic(mongo.db, comic.id)
                 if (!comicDoc) {
@@ -46,7 +46,7 @@ const start = async(mongo) => {
         }
         console.log(`[AGENDA] gathered ${newComics.total} new Comics in ${newComics.series.length} Series`);
 
-        await db.insertStatistics(mongo.db, newComics);
+        await axios.post('http://hero_manager_statistics:8080/api/statistics', newComics);
 
         console.log('[AGENDA] ended job - gather data');
         return done(null, true);

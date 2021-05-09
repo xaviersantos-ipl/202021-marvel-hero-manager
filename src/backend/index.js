@@ -1,14 +1,13 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
-const cors = require('cors');
+const cors = require('cors')
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const passportLocal = require('passport-local').Strategy;
 const passportHTTPBearer = require('passport-http-bearer').Strategy;
 const mongo = require('./database.js');
-const agenda = require('./agenda.js');
 const path = require('path');
-const { off } = require('process');
+
 
 const PORT = process.env.PORT || 8080;
 const JWT_SECRET = process.env.JWT_SECRET || 'secret';
@@ -20,8 +19,6 @@ const start = async() => {
     const app = express();
     console.log("MongoDB setup")
     const db = await mongo.connect();
-    console.log("Agenda setup")
-    agenda.start(db);
 
     passport.use(new passportLocal((username, password, done) => {
         const users = db.db.collection('users');
@@ -47,12 +44,13 @@ const start = async() => {
         });
     }));
 
-    app.use(cors());
+    app.use(cors())
 
     app.use(passport.initialize());
 
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
+
 
     app.post('/api/signin', passport.authenticate('local', { session: false }), async(request, response) => {
         let user = request.user;
@@ -94,17 +92,6 @@ const start = async() => {
         let comicsDocuments = await mongo.getComicsForSeries(db.db, request.params.seriesID);
         console.log("[Tracking] GET")
         return response.send(comicsDocuments);
-    });
-
-
-    app.get('/api/statistics', async(request, response) => {
-        console.log("[Statistics] GET")
-        return response.send(await mongo.getStatistics(db.db));
-    });
-
-    app.get('/api/statistics/latest', async(request, response) => {
-        console.log("[Statistics] GET Latest")
-        return response.send(await mongo.getStatisticsLatest(db.db));
     });
 
     app.listen(PORT, () => console.log(`Marvel Hero Manager API listening on port ${PORT}`));

@@ -1,0 +1,7 @@
+services:   
+    hero_manager_marvel:
+        image: hero_manager_marvel_image
+        build:
+            context: ../../src/
+            dockerfile: ../deployment/kubernetes/services/marvel/Dockerfile
+    

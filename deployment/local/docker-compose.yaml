@@ -4,7 +4,6 @@ services:
         container_name: hero_manager_database
         ports:
             - "27017:27017"
-
     hero_manager_backend:
         image: hero_manager_backend_image
         container_name: hero_manager_backend
@@ -21,7 +20,6 @@ services:
             - DB_HOST=hero_manager_database
             - DB_PORT=27017
             - DB_NAME=heroManager
-
     hero_manager_marvel:
         image: hero_manager_marvel_image
         container_name: hero_manager_marvel
@@ -29,13 +27,44 @@ services:
             context: ../../src/
             dockerfile: ../deployment/local/services/marvel/Dockerfile
         volumes:
-            - ../../src/services/marvel/:/app/backend
+            - ../../src/services/marvel:/app/backend
         ports:
             - "8082:8080"
         environment:
             - MARVEL_URL=https://gateway.marvel.com
         env_file: .env
-
+    hero_manager_statistics:
+        image: hero_manager_statistics_image
+        container_name: hero_manager_statistics
+        build:
+            context: ../../src/
+            dockerfile: ../deployment/local/services/statistics/Dockerfile
+        volumes:
+            - ../../src/services/statistics:/app/backend
+        ports:
+            - "8083:8080"
+        depends_on:
+            - "hero_manager_database"
+        environment:
+            - DB_HOST=hero_manager_database
+            - DB_PORT=27017
+            - DB_NAME=heroManager
+    hero_manager_scheduler:
+        image: hero_manager_scheduler_image
+        container_name: hero_manager_scheduler
+        build:
+            context: ../../src/
+            dockerfile: ../deployment/local/services/scheduler/Dockerfile
+        volumes:
+            - ../../src/services/scheduler:/app/backend
+        ports:
+            - "8084:8080"
+        depends_on:
+            - "hero_manager_database"
+        environment:
+            - DB_HOST=hero_manager_database
+            - DB_PORT=27017
+            - DB_NAME=heroManager
     hero_manager_frontend:
         image: hero_manager_frontend_image
         container_name: hero_manager_frontend
@@ -45,4 +74,4 @@ services:
         volumes:
             - ../../src/frontend:/app/frontend
         ports:
-            - "8080:8080"        
+            - "8080:8080"

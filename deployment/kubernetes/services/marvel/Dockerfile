@@ -2,10 +2,10 @@ FROM node:alpine
 
 WORKDIR /app
 
-RUN npm install --global nodemon
-
 COPY ./package.json /app/
+
+COPY services/marvel/ /app/
 
 RUN npm install
 
-ENTRYPOINT npm run nodemon 
+ENTRYPOINT node index.js

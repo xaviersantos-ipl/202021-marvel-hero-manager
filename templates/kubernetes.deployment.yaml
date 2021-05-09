@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: <<DEPLOYMENT_NAME>>
+  labels:
+    name: <<DEPLOYMENT_NAME>>
+spec:
+  selector:
+    matchLabels:
+      name: <<DEPLOYMENT_NAME>>
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: <<DEPLOYMENT_NAME>>
+    spec:
+      containers:
+      - name: <<CONTAINER_NAME>>
+        image: <<IMAGE_NAME IF LOCAL || IMAGE FULL NAME IF IN REGISTRY>>
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: <<CONTAINER PORT>>
+        resources:
+        env:
+            - name: <<ENV_NAME>>
+              value: <<ENV_VALUE>>
+        

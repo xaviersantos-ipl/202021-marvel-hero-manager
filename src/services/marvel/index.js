@@ -1,5 +1,5 @@
 const express = require('express');
-const cors = require('cors');
+const cors = require('cors')
 const marvel = require('./marvel.js');
 
 const PORT = process.env.PORT || 8080;
@@ -7,8 +7,8 @@ const PORT = process.env.PORT || 8080;
 const start = async() => {
     console.log("Starting Node Server")
     const app = express();
-    
-    app.use(cors());
+
+    app.use(cors())
 
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
@@ -25,7 +25,7 @@ const start = async() => {
     app.post('/api/series/:id/comics', async(request, response) => {
         let seriesID = request.params.id;
         console.log(`[Comics for Series] ${seriesID}`);
-        let data = await marvel.getComicsForSeries({ id: seriesID });
+        let data = await marvel.getComicsForSeries({ id: seriesID })
         return response.send(data);
     });
 
